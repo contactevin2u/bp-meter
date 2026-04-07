@@ -101,6 +101,14 @@ a:hover {
   margin-right: auto;
 }
 
+.section-title--light {
+  color: #FFFFFF;
+}
+
+.section-subtitle--light {
+  color: rgba(255,255,255,0.55);
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
@@ -376,7 +384,7 @@ a:hover {
    ======================================== */
 .why {
   padding: 36px 0;
-  background: var(--color-bg);
+  background: var(--color-bg-dark);
 }
 
 .why__grid {
@@ -386,14 +394,15 @@ a:hover {
 }
 
 .why__card {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-md);
   padding: 18px 16px;
   text-align: center;
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(4px);
 }
 
 .why__card::before {
@@ -403,19 +412,19 @@ a:hover {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-  opacity: 0;
+  opacity: 1;
   transition: opacity var(--transition);
 }
 
+.why__card:nth-child(1)::before { background: linear-gradient(90deg, #1B4DFF, #6366F1); }
+.why__card:nth-child(2)::before { background: linear-gradient(90deg, #00C2A8, #34D399); }
+.why__card:nth-child(3)::before { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+.why__card:nth-child(4)::before { background: linear-gradient(90deg, #EC4899, #F472B6); }
+
 .why__card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: transparent;
-}
-
-.why__card:hover::before {
-  opacity: 1;
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
 }
 
 .why__icon {
@@ -433,12 +442,12 @@ a:hover {
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 6px;
-  color: var(--color-text);
+  color: #FFFFFF;
 }
 
 .why__card p {
   font-size: 0.8rem;
-  color: var(--color-text-secondary);
+  color: rgba(255,255,255,0.6);
   line-height: 1.5;
 }
 
