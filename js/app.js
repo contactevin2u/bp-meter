@@ -357,6 +357,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // SMOOTH SCROLL for header offset
   // ========================================
 
+  // ========================================
+  // SCROLL ANIMATIONS — fade up on enter
+  // ========================================
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const targetId = anchor.getAttribute('href');
