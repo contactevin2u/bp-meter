@@ -1,7 +1,14 @@
 /* ============================================
    BP Meter — Warranty Registration
-   Main JavaScript
+   Main JavaScript — Connected to Supabase
    ============================================ */
+
+// ---- Supabase Configuration ----
+// Update these values if your project changes
+const SUPABASE_URL = 'https://oekkhdldwfsbmhcrykvd.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_DXkFVWdMai5khEtvJwRmqw_tOZ0mb2i';
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -123,8 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Show an inline error message for a specific field.
-   * @param {string} fieldId - The field name (matches error element id pattern)
-   * @param {string} [message] - Optional custom error message
    */
   function showError(fieldId, message) {
     const errorEl = document.getElementById(fieldId + 'Error');
@@ -135,12 +140,10 @@ document.addEventListener('DOMContentLoaded', () => {
       errorEl.classList.add('visible');
     }
 
-    // Add error class to input/select/upload
     if (inputEl) {
       inputEl.classList.add('error');
     }
 
-    // Special handling for upload area and checkbox
     if (fieldId === 'receipt') {
       uploadArea.classList.add('error');
     }
@@ -151,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Clear the error state for a specific field.
-   * @param {string} fieldId - The field name
    */
   function clearError(fieldId) {
     const errorEl = document.getElementById(fieldId + 'Error');
@@ -187,7 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Validate all fields and show errors for invalid ones.
-   * @returns {boolean} True if all fields are valid
    */
   function validateAll() {
     let valid = true;
@@ -249,14 +250,13 @@ document.addEventListener('DOMContentLoaded', () => {
   allFields.forEach(field => {
     const eventType = (field.type === 'checkbox') ? 'change' : 'input';
     field.addEventListener(eventType, () => {
-      // Clear the error for this field as the user corrects it
       clearError(field.id);
       checkFormValidity();
     });
   });
 
   // ========================================
-  // FORM SUBMISSION
+  // FORM SUBMISSION — Supabase
   // ========================================
 
   let isSubmitting = false;
@@ -276,20 +276,42 @@ document.addEventListener('DOMContentLoaded', () => {
     btnText.style.display = 'none';
     btnLoader.style.display = 'inline-flex';
 
-    // Build form data
-    const formData = new FormData();
-    formData.append('modelNumber', modelNumber.value);
-    formData.append('serialNumber', serialNumber.value.trim());
-    formData.append('purchaseDate', purchaseDate.value);
-    formData.append('email', email.value.trim());
-    formData.append('phone', phone.value.trim());
-    formData.append('receipt', receipt.files[0]);
-
     try {
-      // ---- PLACEHOLDER API CALL ----
-      // Replace this with your actual backend endpoint
-      // Example: const response = await fetch('/api/warranty', { method: 'POST', body: formData });
-      await mockApiSubmit(formData);
+      // Step 1: Upload receipt to Supabase Storage
+      const file = receipt.files[0];
+      const fileExt = file.name.split('.').pop();
+      const filePath = `${Date.now()}_${serialNumber.value.trim()}.${fileExt}`;
+
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('receipts')
+        .upload(filePath, file);
+
+      if (uploadError) {
+        throw new Error('Receipt upload failed: ' + uploadError.message);
+      }
+
+      // Step 2: Get the public URL for the uploaded receipt
+      const { data: urlData } = supabase.storage
+        .from('receipts')
+        .getPublicUrl(filePath);
+
+      const receiptUrl = urlData.publicUrl;
+
+      // Step 3: Insert registration data into the database
+      const { error: insertError } = await supabase
+        .from('warranty_registrations')
+        .insert({
+          model_number: modelNumber.value,
+          serial_number: serialNumber.value.trim(),
+          purchase_date: purchaseDate.value,
+          email: email.value.trim(),
+          phone: phone.value.trim(),
+          receipt_url: receiptUrl
+        });
+
+      if (insertError) {
+        throw new Error('Registration failed: ' + insertError.message);
+      }
 
       // Show success message
       form.style.display = 'none';
@@ -297,8 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
       successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     } catch (error) {
-      // Show a generic error — replace with more specific handling as needed
-      alert('Something went wrong. Please try again.');
+      alert(error.message || 'Something went wrong. Please try again.');
       console.error('Submission error:', error);
     } finally {
       // Reset loading state
@@ -308,32 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = false;
     }
   });
-
-  // ========================================
-  // MOCK API SUBMISSION
-  // ========================================
-
-  /**
-   * Simulates an API call with a delay.
-   * Replace this function with a real fetch() call to your backend.
-   * @param {FormData} formData - The form data to submit
-   * @returns {Promise} Resolves after a simulated delay
-   */
-  function mockApiSubmit(formData) {
-    return new Promise((resolve) => {
-      // Log submitted data for development/testing
-      console.log('--- Warranty Registration Submitted ---');
-      for (const [key, value] of formData.entries()) {
-        if (value instanceof File) {
-          console.log(`${key}: ${value.name} (${(value.size / 1024).toFixed(1)} KB)`);
-        } else {
-          console.log(`${key}: ${value}`);
-        }
-      }
-      // Simulate network delay (1.5 seconds)
-      setTimeout(resolve, 1500);
-    });
-  }
 
   // ========================================
   // REGISTER ANOTHER PRODUCT
