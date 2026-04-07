@@ -313,9 +313,10 @@ a:hover {
   flex: 0 0 300px;
 }
 
-.hero__illustration {
+.hero__image {
   width: 100%;
   height: auto;
+  border-radius: var(--radius-md);
 }
 
 /* ========================================
