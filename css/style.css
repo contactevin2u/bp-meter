@@ -525,6 +525,15 @@ a:hover {
   padding-right: 44px;
 }
 
+/* Limit dropdown height so it scrolls */
+.form__select {
+  overflow-y: auto;
+}
+
+.form__select option {
+  padding: 8px 12px;
+}
+
 /* Error message */
 .form__error {
   display: none;
