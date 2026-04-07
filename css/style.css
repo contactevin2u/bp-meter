@@ -90,7 +90,7 @@ a:hover {
   text-align: center;
   color: var(--color-text-secondary);
   font-size: 1.05rem;
-  margin-bottom: 48px;
+  margin-bottom: 28px;
   max-width: 560px;
   margin-left: auto;
   margin-right: auto;
@@ -274,14 +274,14 @@ a:hover {
    HERO SECTION
    ======================================== */
 .hero {
-  padding: 120px 0 80px;
+  padding: 100px 0 48px;
   background: linear-gradient(165deg, #F0F4FF 0%, #FFFFFF 60%);
 }
 
 .hero__inner {
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 40px;
 }
 
 .hero__content {
@@ -289,18 +289,18 @@ a:hover {
 }
 
 .hero__title {
-  font-size: 2.75rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.2;
   color: var(--color-text);
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 .hero__subtitle {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--color-text-secondary);
-  line-height: 1.7;
-  margin-bottom: 32px;
+  line-height: 1.6;
+  margin-bottom: 24px;
   max-width: 480px;
 }
 
@@ -310,7 +310,7 @@ a:hover {
 }
 
 .hero__visual {
-  flex: 0 0 400px;
+  flex: 0 0 300px;
 }
 
 .hero__illustration {
@@ -322,7 +322,7 @@ a:hover {
    WHY REGISTER SECTION
    ======================================== */
 .why {
-  padding: 96px 0;
+  padding: 48px 0;
   background: var(--color-bg);
 }
 
@@ -336,7 +336,7 @@ a:hover {
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 32px 24px;
+  padding: 24px 20px;
   text-align: center;
   transition: all var(--transition);
 }
@@ -348,9 +348,9 @@ a:hover {
 }
 
 .why__icon {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 20px;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 12px;
 }
 
 .why__icon svg {
@@ -375,7 +375,7 @@ a:hover {
    REGISTRATION FORM SECTION
    ======================================== */
 .register {
-  padding: 96px 0;
+  padding: 48px 0;
   background: var(--color-bg-alt);
 }
 
@@ -386,12 +386,12 @@ a:hover {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  padding: 40px;
+  padding: 32px;
   box-shadow: var(--shadow-sm);
 }
 
 .form__group {
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 .form__group:last-child {
@@ -403,7 +403,7 @@ a:hover {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-text);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 /* Input & Select shared styles */
@@ -476,7 +476,7 @@ a:hover {
   position: relative;
   border: 2px dashed var(--color-border);
   border-radius: var(--radius-md);
-  padding: 32px;
+  padding: 20px;
   text-align: center;
   transition: all var(--transition);
   cursor: pointer;
@@ -502,9 +502,9 @@ a:hover {
 }
 
 .form__upload-icon {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto 12px;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 8px;
 }
 
 .form__upload-text {
@@ -643,7 +643,7 @@ a:hover {
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  padding: 56px 40px;
+  padding: 40px 32px;
   text-align: center;
   box-shadow: var(--shadow-sm);
 }
@@ -677,7 +677,7 @@ a:hover {
    FAQ SECTION
    ======================================== */
 .faq {
-  padding: 96px 0;
+  padding: 48px 0;
   background: var(--color-bg);
 }
 
@@ -747,7 +747,7 @@ a:hover {
    FOOTER
    ======================================== */
 .footer {
-  padding: 40px 0;
+  padding: 28px 0;
   background: var(--color-text);
   color: #fff;
 }
@@ -836,54 +836,54 @@ a:hover {
   }
 
   .hero {
-    padding: 100px 0 60px;
+    padding: 80px 0 36px;
   }
 
   .hero__title {
-    font-size: 1.85rem;
+    font-size: 1.75rem;
   }
 
   .hero__subtitle {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .section-subtitle {
-    font-size: 0.95rem;
-    margin-bottom: 32px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
   }
 
   .why {
-    padding: 64px 0;
+    padding: 36px 0;
   }
 
   .why__grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
   }
 
   .why__card {
-    padding: 24px 20px;
+    padding: 18px 16px;
   }
 
   .register {
-    padding: 64px 0;
+    padding: 36px 0;
   }
 
   .form {
-    padding: 28px 20px;
+    padding: 24px 18px;
     border-radius: var(--radius-lg);
   }
 
   .form__upload {
-    padding: 24px 16px;
+    padding: 16px 12px;
   }
 
   .faq {
-    padding: 64px 0;
+    padding: 36px 0;
   }
 
   .faq__question {
@@ -896,10 +896,10 @@ a:hover {
   }
 
   .footer {
-    padding: 32px 0;
+    padding: 24px 0;
   }
 
   .form__success-inner {
-    padding: 40px 24px;
+    padding: 32px 20px;
   }
 }
