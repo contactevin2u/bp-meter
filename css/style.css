@@ -274,14 +274,14 @@ a:hover {
    HERO SECTION
    ======================================== */
 .hero {
-  padding: 100px 0 48px;
+  padding: 110px 0 56px;
   background: linear-gradient(165deg, #F0F4FF 0%, #FFFFFF 60%);
 }
 
 .hero__inner {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 48px;
 }
 
 .hero__content {
@@ -289,28 +289,28 @@ a:hover {
 }
 
 .hero__title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--color-text);
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .hero__subtitle {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin-bottom: 24px;
-  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 520px;
 }
 
 .hero__cta {
-  font-size: 1.1rem;
-  padding: 16px 40px;
+  font-size: 1.15rem;
+  padding: 18px 48px;
 }
 
 .hero__visual {
-  flex: 0 0 300px;
+  flex: 0 0 360px;
 }
 
 .hero__image {
