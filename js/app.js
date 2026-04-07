@@ -8,7 +8,7 @@
 const SUPABASE_URL = 'https://oekkhdldwfsbmhcrykvd.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_DXkFVWdMai5khEtvJwRmqw_tOZ0mb2i';
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const fileExt = file.name.split('.').pop();
       const filePath = `${Date.now()}_${serialNumber.value.trim()}.${fileExt}`;
 
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { data: uploadData, error: uploadError } = await db.storage
         .from('receipts')
         .upload(filePath, file);
 
@@ -291,14 +291,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Step 2: Get the public URL for the uploaded receipt
-      const { data: urlData } = supabase.storage
+      const { data: urlData } = db.storage
         .from('receipts')
         .getPublicUrl(filePath);
 
       const receiptUrl = urlData.publicUrl;
 
       // Step 3: Insert registration data into the database
-      const { error: insertError } = await supabase
+      const { error: insertError } = await db
         .from('warranty_registrations')
         .insert({
           model_number: modelNumber.value,
