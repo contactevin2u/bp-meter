@@ -1,14 +1,15 @@
 /* ============================================
    BP Meter — Warranty Registration Website
-   Theme 3: Bold & Modern (Tech/Premium)
+   Premium, modern, mobile-first stylesheet
    ============================================ */
 
 /* ---------- CSS Variables ---------- */
 :root {
-  --color-primary: #4F46E5;
-  --color-primary-dark: #4338CA;
+  --color-primary: #1B4DFF;
+  --color-primary-dark: #0F3AD8;
   --color-primary-light: #EEF2FF;
-  --color-accent: #06B6D4;
+  --color-accent: #00C2A8;
+  --color-accent-light: #E6FBF7;
   --color-success: #10B981;
   --color-success-light: #ECFDF5;
   --color-error: #EF4444;
@@ -19,9 +20,8 @@
   --color-bg: #FFFFFF;
   --color-bg-alt: #F8FAFC;
   --color-bg-dark: #0F172A;
-  --color-bg-dark-2: #1E293B;
   --color-border: #E2E8F0;
-  --color-border-focus: #4F46E5;
+  --color-border-focus: #1B4DFF;
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --radius-sm: 10px;
   --radius-md: 14px;
@@ -30,7 +30,7 @@
   --shadow-sm: 0 1px 3px rgba(15,23,42,0.04), 0 1px 2px rgba(15,23,42,0.06);
   --shadow-md: 0 4px 16px rgba(15,23,42,0.08), 0 2px 4px rgba(15,23,42,0.04);
   --shadow-lg: 0 12px 40px rgba(15,23,42,0.12), 0 4px 12px rgba(15,23,42,0.06);
-  --shadow-glow: 0 4px 20px rgba(79,70,229,0.3);
+  --shadow-primary: 0 4px 16px rgba(27,77,255,0.25);
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -91,10 +91,6 @@ a:hover {
   letter-spacing: -0.02em;
 }
 
-.section-title--light {
-  color: #FFFFFF;
-}
-
 .section-subtitle {
   text-align: center;
   color: var(--color-text-secondary);
@@ -103,10 +99,6 @@ a:hover {
   max-width: 560px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.section-subtitle--light {
-  color: rgba(255,255,255,0.55);
 }
 
 /* ---------- Buttons ---------- */
@@ -127,16 +119,16 @@ a:hover {
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  background: linear-gradient(135deg, #1B4DFF 0%, #0F3AD8 100%);
   color: #fff;
   border-color: transparent;
-  box-shadow: var(--shadow-glow);
+  box-shadow: var(--shadow-primary);
 }
 
 .btn--primary:hover {
-  background: linear-gradient(135deg, #4338CA 0%, #6D28D9 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(79,70,229,0.4);
+  background: linear-gradient(135deg, #0F3AD8 0%, #0A2EB5 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(27,77,255,0.35);
   color: #fff;
 }
 
@@ -160,7 +152,7 @@ a:hover {
 .btn--outline:hover {
   background: var(--color-primary);
   color: #fff;
-  box-shadow: var(--shadow-glow);
+  box-shadow: var(--shadow-primary);
   transform: translateY(-1px);
 }
 
@@ -174,7 +166,7 @@ a:hover {
 }
 
 /* ========================================
-   HEADER — Dark transparent
+   HEADER
    ======================================== */
 .header {
   position: fixed;
@@ -182,10 +174,10 @@ a:hover {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
 }
 
 .header__inner {
@@ -201,13 +193,13 @@ a:hover {
   gap: 10px;
   font-size: 1.2rem;
   font-weight: 700;
-  color: #FFFFFF;
+  color: var(--color-text);
   text-decoration: none;
   letter-spacing: -0.02em;
 }
 
 .header__logo:hover {
-  color: #FFFFFF;
+  color: var(--color-text);
 }
 
 .header__logo-icon {
@@ -221,7 +213,7 @@ a:hover {
 }
 
 .header__nav a {
-  color: rgba(255,255,255,0.6);
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
   font-weight: 500;
   text-decoration: none;
@@ -242,7 +234,7 @@ a:hover {
 }
 
 .header__nav a:hover {
-  color: #FFFFFF;
+  color: var(--color-primary);
 }
 
 .header__nav a:hover::after {
@@ -264,7 +256,7 @@ a:hover {
   display: block;
   width: 24px;
   height: 2px;
-  background: #FFFFFF;
+  background: var(--color-text);
   border-radius: 2px;
   transition: all var(--transition);
 }
@@ -286,9 +278,9 @@ a:hover {
   display: none;
   flex-direction: column;
   padding: 16px 20px 24px;
-  background: rgba(15, 23, 42, 0.98);
+  background: rgba(255,255,255,0.98);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .mobile-nav.active {
@@ -299,8 +291,8 @@ a:hover {
   padding: 12px 0;
   font-size: 1.05rem;
   font-weight: 500;
-  color: rgba(255,255,255,0.6);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .mobile-nav__link:last-child {
@@ -308,40 +300,28 @@ a:hover {
 }
 
 .mobile-nav__link:hover {
-  color: #FFFFFF;
+  color: var(--color-primary);
 }
 
 /* ========================================
-   HERO SECTION — Dark gradient
+   HERO SECTION
    ======================================== */
 .hero {
   padding: 110px 0 56px;
-  background: linear-gradient(160deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+  background: linear-gradient(160deg, #EEF2FF 0%, #F8FAFC 35%, #FFFFFF 70%);
   position: relative;
   overflow: hidden;
 }
 
-/* Decorative gradient orbs */
+/* Subtle decorative gradient orb */
 .hero::before {
   content: '';
   position: absolute;
-  top: -150px;
+  top: -100px;
   right: -100px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(79,70,229,0.15) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -100px;
-  left: -80px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(27,77,255,0.06) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -361,14 +341,14 @@ a:hover {
   font-size: 3rem;
   font-weight: 700;
   line-height: 1.15;
-  color: #FFFFFF;
+  color: var(--color-text);
   margin-bottom: 18px;
   letter-spacing: -0.03em;
 }
 
 .hero__subtitle {
-  font-size: 1.15rem;
-  color: rgba(255,255,255,0.6);
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
   line-height: 1.7;
   margin-bottom: 28px;
   max-width: 520px;
@@ -388,11 +368,11 @@ a:hover {
   width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
-  filter: drop-shadow(0 20px 50px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 16px 40px rgba(15,23,42,0.12));
 }
 
 /* ========================================
-   WHY REGISTER — White with colourful cards
+   WHY REGISTER SECTION
    ======================================== */
 .why {
   padding: 36px 0;
@@ -406,38 +386,42 @@ a:hover {
 }
 
 .why__card {
-  border: none;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 20px 16px;
+  padding: 18px 16px;
   text-align: center;
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
 }
 
-/* Each card gets its own soft pastel background */
-.why__card:nth-child(1) {
-  background: linear-gradient(145deg, #EEF2FF, #E0E7FF);
-}
-.why__card:nth-child(2) {
-  background: linear-gradient(145deg, #ECFDF5, #D1FAE5);
-}
-.why__card:nth-child(3) {
-  background: linear-gradient(145deg, #FFFBEB, #FEF3C7);
-}
-.why__card:nth-child(4) {
-  background: linear-gradient(145deg, #FDF2F8, #FCE7F3);
+.why__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  opacity: 0;
+  transition: opacity var(--transition);
 }
 
 .why__card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
+  border-color: transparent;
+}
+
+.why__card:hover::before {
+  opacity: 1;
 }
 
 .why__icon {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto 10px;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto 8px;
 }
 
 .why__icon svg {
@@ -459,11 +443,11 @@ a:hover {
 }
 
 /* ========================================
-   REGISTRATION FORM — Soft lavender
+   REGISTRATION FORM SECTION
    ======================================== */
 .register {
   padding: 48px 0;
-  background: linear-gradient(180deg, #F5F3FF 0%, #EDE9FE 100%);
+  background: linear-gradient(180deg, var(--color-bg-alt) 0%, #EEF2FF 100%);
 }
 
 /* Form container */
@@ -471,7 +455,7 @@ a:hover {
   max-width: 600px;
   margin: 0 auto;
   background: var(--color-bg);
-  border: 1px solid rgba(79,70,229,0.1);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: 32px;
   box-shadow: var(--shadow-lg);
@@ -518,7 +502,7 @@ a:hover {
 .form__input:focus,
 .form__select:focus {
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  box-shadow: 0 0 0 3px rgba(27, 77, 255, 0.1);
   background: var(--color-bg);
 }
 
@@ -539,15 +523,6 @@ a:hover {
   background-repeat: no-repeat;
   background-position: right 14px center;
   padding-right: 44px;
-}
-
-/* Limit dropdown height so it scrolls */
-.form__select {
-  overflow-y: auto;
-}
-
-.form__select option {
-  padding: 8px 12px;
 }
 
 /* Error message */
@@ -692,11 +667,11 @@ a:hover {
 }
 
 .form__checkbox:focus + .form__checkbox-custom {
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  box-shadow: 0 0 0 3px rgba(27, 77, 255, 0.1);
 }
 
 .form__checkbox:checked + .form__checkbox-custom {
-  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  background: linear-gradient(135deg, #1B4DFF, #0F3AD8);
   border-color: var(--color-primary);
 }
 
@@ -741,7 +716,7 @@ a:hover {
 
 .form__success-inner {
   background: var(--color-bg);
-  border: 1px solid rgba(79,70,229,0.1);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: 40px 32px;
   text-align: center;
@@ -775,7 +750,7 @@ a:hover {
 }
 
 /* ========================================
-   FAQ SECTION — White
+   FAQ SECTION
    ======================================== */
 .faq {
   padding: 48px 0;
@@ -797,13 +772,13 @@ a:hover {
 }
 
 .faq__item:hover {
-  border-color: rgba(79,70,229,0.2);
+  border-color: rgba(27,77,255,0.2);
   box-shadow: var(--shadow-sm);
 }
 
 .faq__item[open] {
   border-color: var(--color-primary);
-  box-shadow: 0 2px 12px rgba(79, 70, 229, 0.08);
+  box-shadow: 0 2px 12px rgba(27, 77, 255, 0.08);
 }
 
 .faq__question {
@@ -847,13 +822,12 @@ a:hover {
 }
 
 /* ========================================
-   FOOTER — Dark matching hero
+   FOOTER
    ======================================== */
 .footer {
   padding: 28px 0;
   background: var(--color-bg-dark);
   color: #fff;
-  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .footer__inner {
@@ -880,14 +854,14 @@ a:hover {
 
 .footer__help p {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .footer__help a {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-color: rgba(255,255,255,0.25);
+  text-decoration-color: rgba(255,255,255,0.3);
   transition: all var(--transition);
 }
 
@@ -898,7 +872,7 @@ a:hover {
 
 .footer__copy p {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* ========================================
