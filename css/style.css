@@ -521,6 +521,160 @@ a:hover { color: var(--primary); }
 .form__success-sub { font-size: 0.85rem !important; color: var(--text-muted) !important; margin-bottom: 24px !important; }
 
 /* ========================================
+   CHECK WARRANTY
+   ======================================== */
+.check-warranty {
+  padding: 48px 0;
+  background: var(--bg-tint);
+}
+
+.check-warranty__card {
+  max-width: 580px;
+  margin: 0 auto;
+  background: var(--bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+}
+
+.check-warranty__tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-tint);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.check-warranty__tab {
+  flex: 1;
+  padding: 10px 16px;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.check-warranty__tab:hover { color: var(--primary); }
+.check-warranty__tab.active {
+  background: var(--bg);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.check-warranty__form { display: flex; flex-direction: column; gap: 14px; }
+.check-warranty__field { flex: 1; }
+
+/* Results */
+.check-warranty__results { margin-top: 24px; }
+
+.check-warranty__result-item {
+  background: var(--bg-tint);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 12px;
+}
+.check-warranty__result-item:last-child { margin-bottom: 0; }
+
+.check-warranty__result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.check-warranty__result-model {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.check-warranty__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 50px;
+}
+.check-warranty__status--active {
+  background: var(--success-light);
+  color: var(--success);
+}
+.check-warranty__status--expired {
+  background: var(--error-light);
+  color: var(--error);
+}
+
+.check-warranty__result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.check-warranty__result-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.check-warranty__result-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.check-warranty__result-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Multiple results note */
+.check-warranty__count {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+/* Empty state */
+.check-warranty__empty {
+  margin-top: 24px;
+  text-align: center;
+  padding: 20px 0;
+}
+.check-warranty__empty svg { margin: 0 auto 12px; }
+.check-warranty__empty-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+.check-warranty__empty-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ========================================
    FAQ
    ======================================== */
 .faq {
@@ -622,6 +776,9 @@ a:hover { color: var(--primary); }
   .register { padding: 32px 0; }
   .form { padding: 24px 18px; border-radius: var(--radius-lg); }
   .form__upload { padding: 16px 12px; }
+  .check-warranty { padding: 32px 0; }
+  .check-warranty__card { padding: 24px 18px; border-radius: var(--radius-lg); }
+  .check-warranty__result-grid { grid-template-columns: 1fr; }
   .faq { padding: 32px 0; }
   .faq__question { padding: 13px 16px; font-size: 0.88rem; }
   .faq__answer { padding: 0 16px 13px; }

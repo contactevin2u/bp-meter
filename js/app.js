@@ -354,6 +354,175 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ========================================
+  // CHECK WARRANTY — Search by serial or phone
+  // ========================================
+
+  const checkForm = document.getElementById('checkWarrantyForm');
+  const searchSerial = document.getElementById('searchSerial');
+  const searchPhone = document.getElementById('searchPhone');
+  const searchSerialField = document.getElementById('searchSerialField');
+  const searchPhoneField = document.getElementById('searchPhoneField');
+  const searchBtn = document.getElementById('searchBtn');
+  const searchBtnText = document.getElementById('searchBtnText');
+  const searchBtnLoader = document.getElementById('searchBtnLoader');
+  const warrantyResults = document.getElementById('warrantyResults');
+  const warrantyEmpty = document.getElementById('warrantyEmpty');
+  const tabs = document.querySelectorAll('.check-warranty__tab');
+
+  let activeSearchTab = 'serial';
+
+  // Tab switching
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeSearchTab = tab.dataset.tab;
+
+      // Toggle fields
+      if (activeSearchTab === 'serial') {
+        searchSerialField.style.display = 'block';
+        searchPhoneField.style.display = 'none';
+        searchPhone.value = '';
+        clearError('searchPhone');
+      } else {
+        searchSerialField.style.display = 'none';
+        searchPhoneField.style.display = 'block';
+        searchSerial.value = '';
+        clearError('searchSerial');
+      }
+
+      // Hide previous results
+      warrantyResults.style.display = 'none';
+      warrantyEmpty.style.display = 'none';
+    });
+  });
+
+  // Clear errors on input
+  searchSerial.addEventListener('input', () => clearError('searchSerial'));
+  searchPhone.addEventListener('input', () => clearError('searchPhone'));
+
+  let isSearching = false;
+
+  checkForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (isSearching) return;
+
+    // Validate
+    if (activeSearchTab === 'serial') {
+      if (searchSerial.value.trim() === '') {
+        showError('searchSerial');
+        return;
+      }
+    } else {
+      if (searchPhone.value.trim() === '') {
+        showError('searchPhone');
+        return;
+      }
+    }
+
+    // Loading state
+    isSearching = true;
+    searchBtnText.style.display = 'none';
+    searchBtnLoader.style.display = 'inline-flex';
+    warrantyResults.style.display = 'none';
+    warrantyEmpty.style.display = 'none';
+
+    try {
+      let query = db.from('warranty_registrations').select('*');
+
+      if (activeSearchTab === 'serial') {
+        query = query.ilike('serial_number', searchSerial.value.trim());
+      } else {
+        query = query.ilike('phone', searchPhone.value.trim());
+      }
+
+      const { data, error } = await query;
+
+      if (error) throw new Error('Search failed: ' + error.message);
+
+      if (!data || data.length === 0) {
+        warrantyEmpty.style.display = 'block';
+      } else {
+        renderWarrantyResults(data);
+        warrantyResults.style.display = 'block';
+      }
+    } catch (err) {
+      alert(err.message || 'Something went wrong. Please try again.');
+      console.error('Search error:', err);
+    } finally {
+      isSearching = false;
+      searchBtnText.style.display = 'inline-flex';
+      searchBtnLoader.style.display = 'none';
+    }
+  });
+
+  /**
+   * Render warranty search results.
+   */
+  function renderWarrantyResults(records) {
+    const warrantyYears = 2;
+    let html = '';
+
+    if (records.length > 1) {
+      html += `<p class="check-warranty__count">${records.length} warranties found</p>`;
+    }
+
+    records.forEach(rec => {
+      const purchaseDate = new Date(rec.purchase_date);
+      const expiryDate = new Date(purchaseDate);
+      expiryDate.setFullYear(expiryDate.getFullYear() + warrantyYears);
+      const now = new Date();
+      const isActive = now <= expiryDate;
+
+      const statusClass = isActive ? 'active' : 'expired';
+      const statusLabel = isActive ? 'Active' : 'Expired';
+      const statusDot = isActive ? '#10B981' : '#EF4444';
+
+      const formatDate = (d) => d.toLocaleDateString('en-MY', { year: 'numeric', month: 'short', day: 'numeric' });
+
+      html += `
+        <div class="check-warranty__result-item">
+          <div class="check-warranty__result-header">
+            <span class="check-warranty__result-model">${escapeHtml(rec.model_number)}</span>
+            <span class="check-warranty__status check-warranty__status--${statusClass}">
+              <svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="${statusDot}"/></svg>
+              ${statusLabel}
+            </span>
+          </div>
+          <div class="check-warranty__result-grid">
+            <div class="check-warranty__result-field">
+              <span class="check-warranty__result-label">Serial Number</span>
+              <span class="check-warranty__result-value">${escapeHtml(rec.serial_number)}</span>
+            </div>
+            <div class="check-warranty__result-field">
+              <span class="check-warranty__result-label">Phone</span>
+              <span class="check-warranty__result-value">${escapeHtml(rec.phone)}</span>
+            </div>
+            <div class="check-warranty__result-field">
+              <span class="check-warranty__result-label">Purchase Date</span>
+              <span class="check-warranty__result-value">${formatDate(purchaseDate)}</span>
+            </div>
+            <div class="check-warranty__result-field">
+              <span class="check-warranty__result-label">Warranty Expiry</span>
+              <span class="check-warranty__result-value">${formatDate(expiryDate)}</span>
+            </div>
+          </div>
+        </div>`;
+    });
+
+    warrantyResults.innerHTML = html;
+  }
+
+  /**
+   * Escape HTML to prevent XSS.
+   */
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ========================================
   // SMOOTH SCROLL for header offset
   // ========================================
 

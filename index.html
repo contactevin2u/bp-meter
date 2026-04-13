@@ -30,6 +30,7 @@
       <nav class="header__nav">
         <a href="#why-register">Why Register</a>
         <a href="#register">Register</a>
+        <a href="#check-warranty">Check Warranty</a>
         <a href="#faq">FAQ</a>
       </nav>
       <button class="header__menu-btn" id="menuBtn" aria-label="Open menu">
@@ -39,6 +40,7 @@
     <div class="mobile-nav" id="mobileNav">
       <a href="#why-register" class="mobile-nav__link">Why Register</a>
       <a href="#register" class="mobile-nav__link">Register</a>
+      <a href="#check-warranty" class="mobile-nav__link">Check Warranty</a>
       <a href="#faq" class="mobile-nav__link">FAQ</a>
     </div>
   </header>
@@ -208,6 +210,58 @@
           <p>Your warranty has been registered successfully.</p>
           <p class="form__success-sub">A confirmation email will be sent to your registered email address. If you need any assistance, please don't hesitate to contact us.</p>
           <button type="button" class="btn btn--outline" id="registerAnother">Register Another Product</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CHECK WARRANTY SECTION ========== -->
+  <section class="check-warranty" id="check-warranty">
+    <div class="container">
+      <span class="section-label">Existing Customers</span>
+      <h2 class="section-title">Check Your Warranty</h2>
+      <p class="section-subtitle">Already registered? Search by your product serial number or phone number to view your warranty status.</p>
+
+      <div class="check-warranty__card">
+        <div class="check-warranty__tabs">
+          <button class="check-warranty__tab active" data-tab="serial">Serial Number</button>
+          <button class="check-warranty__tab" data-tab="phone">Phone Number</button>
+        </div>
+
+        <form class="check-warranty__form" id="checkWarrantyForm" novalidate>
+          <div class="check-warranty__field" id="searchSerialField">
+            <label for="searchSerial" class="form__label">Serial Number</label>
+            <input type="text" id="searchSerial" class="form__input" placeholder="e.g. SN-20240001">
+            <span class="form__error" id="searchSerialError">Please enter a serial number.</span>
+          </div>
+          <div class="check-warranty__field" id="searchPhoneField" style="display:none;">
+            <label for="searchPhone" class="form__label">Phone Number</label>
+            <input type="tel" id="searchPhone" class="form__input" placeholder="e.g. 012-3456789">
+            <span class="form__error" id="searchPhoneError">Please enter a phone number.</span>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full" id="searchBtn">
+            <span class="btn__text" id="searchBtnText">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              Search Warranty
+            </span>
+            <span class="btn__loader" id="searchBtnLoader" style="display:none;">
+              <svg class="spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4" stroke-linecap="round"/></svg>
+              Searching...
+            </span>
+          </button>
+        </form>
+
+        <!-- Search Results -->
+        <div class="check-warranty__results" id="warrantyResults" style="display:none;"></div>
+
+        <!-- No Results -->
+        <div class="check-warranty__empty" id="warrantyEmpty" style="display:none;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#FEF2F2"/>
+            <path d="M18 18L30 30M30 18L18 30" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <p class="check-warranty__empty-title">No Warranty Found</p>
+          <p class="check-warranty__empty-text">We couldn't find a warranty registration matching your search. Please check your details and try again, or <a href="#register">register your warranty</a>.</p>
         </div>
       </div>
     </div>
