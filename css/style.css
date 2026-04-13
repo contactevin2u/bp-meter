@@ -236,6 +236,9 @@ a:hover { color: var(--primary); }
    ======================================== */
 .hero {
   padding: 110px 0 56px;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
   background: radial-gradient(ellipse at 20% 0%, rgba(190,233,232,0.3) 0%, var(--bg-tint) 55%, var(--bg) 100%);
   position: relative;
   overflow: hidden;
@@ -296,13 +299,13 @@ a:hover { color: var(--primary); }
    WHY REGISTER
    ======================================== */
 .why {
-  padding: 24px 0;
+  padding: 16px 0;
   background: var(--primary);
 }
 
 .why .section-label { color: var(--mist); }
-.why .section-title { color: #fff; }
-.why .section-subtitle { color: rgba(255,255,255,0.7); }
+.why .section-title { color: #fff; margin-bottom: 4px; }
+.why .section-subtitle { color: rgba(255,255,255,0.7); margin-bottom: 14px; }
 
 .why__grid {
   display: grid;
@@ -314,7 +317,7 @@ a:hover { color: var(--primary); }
   background: var(--bg);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
-  padding: 20px 16px;
+  padding: 14px 12px;
   text-align: center;
   transition: all var(--transition);
   box-shadow: var(--shadow-sm);
