@@ -297,8 +297,12 @@ a:hover { color: var(--primary); }
    ======================================== */
 .why {
   padding: 40px 0;
-  background: var(--bg-tint);
+  background: var(--primary);
 }
+
+.why .section-label { color: var(--mist); }
+.why .section-title { color: #fff; }
+.why .section-subtitle { color: rgba(255,255,255,0.7); }
 
 .why__grid {
   display: grid;
