@@ -153,10 +153,10 @@ a:hover { color: var(--primary); }
   top: 3px;
   left: 0; right: 0;
   z-index: 100;
-  background: rgba(255,255,255,0.9);
+  background: rgba(27,73,101,0.95);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .header__inner {
@@ -173,15 +173,15 @@ a:hover { color: var(--primary); }
   font-family: var(--font-heading);
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--primary);
+  color: #fff;
   letter-spacing: -0.02em;
 }
-.header__logo:hover { color: var(--primary); }
+.header__logo:hover { color: #fff; }
 .header__logo-icon { width: 30px; height: 30px; }
 
 .header__nav { display: flex; gap: 28px; }
 .header__nav a {
-  color: var(--text-secondary);
+  color: rgba(255,255,255,0.75);
   font-size: 0.85rem;
   font-weight: 500;
   position: relative;
@@ -195,7 +195,7 @@ a:hover { color: var(--primary); }
   border-radius: 1px;
   transition: width var(--transition);
 }
-.header__nav a:hover { color: var(--primary); }
+.header__nav a:hover { color: #fff; }
 .header__nav a:hover::after { width: 100%; }
 
 /* Mobile hamburger */
@@ -207,7 +207,7 @@ a:hover { color: var(--primary); }
 }
 .header__menu-btn span {
   display: block; width: 22px; height: 2px;
-  background: var(--primary); border-radius: 2px;
+  background: #fff; border-radius: 2px;
   transition: all var(--transition);
 }
 .header__menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
@@ -218,18 +218,18 @@ a:hover { color: var(--primary); }
   display: none;
   flex-direction: column;
   padding: 12px 20px 20px;
-  background: rgba(255,255,255,0.98);
-  border-bottom: 1px solid var(--border-light);
+  background: rgba(27,73,101,0.98);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .mobile-nav.active { display: flex; }
 .mobile-nav__link {
   padding: 12px 0;
   font-size: 1rem; font-weight: 500;
-  color: var(--text-secondary);
-  border-bottom: 1px solid var(--border-light);
+  color: rgba(255,255,255,0.75);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .mobile-nav__link:last-child { border-bottom: none; }
-.mobile-nav__link:hover { color: var(--primary); }
+.mobile-nav__link:hover { color: #fff; }
 
 /* ========================================
    HERO
