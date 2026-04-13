@@ -236,7 +236,7 @@ a:hover { color: var(--primary); }
    ======================================== */
 .hero {
   padding: 110px 0 56px;
-  min-height: 70vh;
+  min-height: 62vh;
   display: flex;
   align-items: center;
   background: radial-gradient(ellipse at 20% 0%, rgba(190,233,232,0.3) 0%, var(--bg-tint) 55%, var(--bg) 100%);
