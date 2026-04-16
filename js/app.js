@@ -406,7 +406,6 @@ document.addEventListener('DOMContentLoaded', () => {
   searchPhone.addEventListener('input', () => clearError('searchPhone'));
   searchEmail.addEventListener('input', () => clearError('searchEmail'));
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let isSearching = false;
 
   checkForm.addEventListener('submit', async (e) => {
