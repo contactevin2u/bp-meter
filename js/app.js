@@ -354,14 +354,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ========================================
-  // CHECK WARRANTY — Search by serial or phone
+  // CHECK WARRANTY — Search by phone or email
   // ========================================
 
   const checkForm = document.getElementById('checkWarrantyForm');
-  const searchSerial = document.getElementById('searchSerial');
   const searchPhone = document.getElementById('searchPhone');
-  const searchSerialField = document.getElementById('searchSerialField');
+  const searchEmail = document.getElementById('searchEmail');
   const searchPhoneField = document.getElementById('searchPhoneField');
+  const searchEmailField = document.getElementById('searchEmailField');
   const searchBtn = document.getElementById('searchBtn');
   const searchBtnText = document.getElementById('searchBtnText');
   const searchBtnLoader = document.getElementById('searchBtnLoader');
@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const warrantyEmpty = document.getElementById('warrantyEmpty');
   const tabs = document.querySelectorAll('.check-warranty__tab');
 
-  let activeSearchTab = 'serial';
+  let activeSearchTab = 'phone';
 
   // Tab switching
   tabs.forEach(tab => {
@@ -379,16 +379,16 @@ document.addEventListener('DOMContentLoaded', () => {
       activeSearchTab = tab.dataset.tab;
 
       // Toggle fields
-      if (activeSearchTab === 'serial') {
-        searchSerialField.style.display = 'block';
+      if (activeSearchTab === 'phone') {
+        searchPhoneField.style.display = 'block';
+        searchEmailField.style.display = 'none';
+        searchEmail.value = '';
+        clearError('searchEmail');
+      } else {
         searchPhoneField.style.display = 'none';
+        searchEmailField.style.display = 'block';
         searchPhone.value = '';
         clearError('searchPhone');
-      } else {
-        searchSerialField.style.display = 'none';
-        searchPhoneField.style.display = 'block';
-        searchSerial.value = '';
-        clearError('searchSerial');
       }
 
       // Hide previous results
@@ -398,9 +398,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Clear errors on input
-  searchSerial.addEventListener('input', () => clearError('searchSerial'));
   searchPhone.addEventListener('input', () => clearError('searchPhone'));
+  searchEmail.addEventListener('input', () => clearError('searchEmail'));
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   let isSearching = false;
 
   checkForm.addEventListener('submit', async (e) => {
@@ -408,14 +409,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isSearching) return;
 
     // Validate
-    if (activeSearchTab === 'serial') {
-      if (searchSerial.value.trim() === '') {
-        showError('searchSerial');
+    if (activeSearchTab === 'phone') {
+      if (searchPhone.value.trim() === '') {
+        showError('searchPhone');
         return;
       }
     } else {
-      if (searchPhone.value.trim() === '') {
-        showError('searchPhone');
+      if (!emailRegex.test(searchEmail.value.trim())) {
+        showError('searchEmail');
         return;
       }
     }
@@ -430,10 +431,10 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       let query = db.from('warranty_registrations').select('*');
 
-      if (activeSearchTab === 'serial') {
-        query = query.ilike('serial_number', searchSerial.value.trim());
-      } else {
+      if (activeSearchTab === 'phone') {
         query = query.ilike('phone', searchPhone.value.trim());
+      } else {
+        query = query.ilike('email', searchEmail.value.trim());
       }
 
       const { data, error } = await query;
@@ -491,12 +492,12 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="check-warranty__result-grid">
             <div class="check-warranty__result-field">
-              <span class="check-warranty__result-label">Serial Number</span>
-              <span class="check-warranty__result-value">${escapeHtml(rec.serial_number)}</span>
+              <span class="check-warranty__result-label">Phone</span>
+              <span class="check-warranty__result-value">${escapeHtml(maskPhone(rec.phone))}</span>
             </div>
             <div class="check-warranty__result-field">
-              <span class="check-warranty__result-label">Phone</span>
-              <span class="check-warranty__result-value">${escapeHtml(rec.phone)}</span>
+              <span class="check-warranty__result-label">Email</span>
+              <span class="check-warranty__result-value">${escapeHtml(maskEmail(rec.email))}</span>
             </div>
             <div class="check-warranty__result-field">
               <span class="check-warranty__result-label">Purchase Date</span>
@@ -518,8 +519,23 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function escapeHtml(str) {
     const div = document.createElement('div');
-    div.textContent = str;
+    div.textContent = str == null ? '' : String(str);
     return div.innerHTML;
+  }
+
+  function maskPhone(phone) {
+    if (!phone) return '';
+    const digits = String(phone).replace(/\D/g, '');
+    if (digits.length <= 4) return '••••';
+    return '••••••' + digits.slice(-4);
+  }
+
+  function maskEmail(email) {
+    if (!email) return '';
+    const [local, domain] = String(email).split('@');
+    if (!domain) return '••••';
+    const visible = local.slice(0, 2);
+    return visible + '•••@' + domain;
   }
 
   // ========================================
