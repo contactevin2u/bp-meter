@@ -367,35 +367,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchBtnLoader = document.getElementById('searchBtnLoader');
   const warrantyResults = document.getElementById('warrantyResults');
   const warrantyEmpty = document.getElementById('warrantyEmpty');
+  const tabsContainer = document.querySelector('.check-warranty__tabs');
   const tabs = document.querySelectorAll('.check-warranty__tab');
 
   let activeSearchTab = 'phone';
 
-  // Tab switching
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      activeSearchTab = tab.dataset.tab;
+  function setActiveTab(target) {
+    if (!target || !target.dataset || !target.dataset.tab) return;
+    tabs.forEach(t => t.classList.remove('active'));
+    target.classList.add('active');
+    activeSearchTab = target.dataset.tab;
 
-      // Toggle fields
-      if (activeSearchTab === 'phone') {
-        searchPhoneField.style.display = 'block';
-        searchEmailField.style.display = 'none';
-        searchEmail.value = '';
-        clearError('searchEmail');
-      } else {
-        searchPhoneField.style.display = 'none';
-        searchEmailField.style.display = 'block';
-        searchPhone.value = '';
-        clearError('searchPhone');
-      }
+    if (activeSearchTab === 'phone') {
+      searchPhoneField.style.display = 'block';
+      searchEmailField.style.display = 'none';
+      searchEmail.value = '';
+      clearError('searchEmail');
+    } else {
+      searchPhoneField.style.display = 'none';
+      searchEmailField.style.display = 'block';
+      searchPhone.value = '';
+      clearError('searchPhone');
+    }
 
-      // Hide previous results
-      warrantyResults.style.display = 'none';
-      warrantyEmpty.style.display = 'none';
+    warrantyResults.style.display = 'none';
+    warrantyEmpty.style.display = 'none';
+  }
+
+  // Event delegation — reliable even if DOM shifts
+  if (tabsContainer) {
+    tabsContainer.addEventListener('click', (e) => {
+      const btn = e.target.closest('.check-warranty__tab');
+      if (btn && tabsContainer.contains(btn)) setActiveTab(btn);
     });
-  });
+  }
 
   // Clear errors on input
   searchPhone.addEventListener('input', () => clearError('searchPhone'));
