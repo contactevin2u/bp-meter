@@ -430,21 +430,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       let query = db.from('warranty_registrations').select('*');
+      let filterFn = null;
 
       if (activeSearchTab === 'phone') {
-        query = query.ilike('phone', searchPhone.value.trim());
+        const digits = searchPhone.value.replace(/\D/g, '');
+        // Loose DB match on last 4 digits, then exact normalized match in JS
+        const tail = digits.slice(-4);
+        query = query.ilike('phone', `%${tail}%`);
+        filterFn = (rec) => String(rec.phone ?? '').replace(/\D/g, '') === digits;
       } else {
-        query = query.ilike('email', searchEmail.value.trim());
+        const emailVal = searchEmail.value.trim().toLowerCase();
+        query = query.ilike('email', emailVal);
+        filterFn = (rec) => String(rec.email ?? '').trim().toLowerCase() === emailVal;
       }
 
       const { data, error } = await query;
 
       if (error) throw new Error('Search failed: ' + error.message);
 
-      if (!data || data.length === 0) {
+      const matches = (data || []).filter(filterFn);
+
+      if (matches.length === 0) {
         warrantyEmpty.style.display = 'block';
       } else {
-        renderWarrantyResults(data);
+        renderWarrantyResults(matches);
         warrantyResults.style.display = 'block';
       }
     } catch (err) {
